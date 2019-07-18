@@ -1,10 +1,6 @@
 export default class VueEnbaled {
-  constructor(Vue, { mode, config = {} }) {
-    this._vm = null
-    this._initVM(Vue, {
-        mode,
-        config
-    })
+  constructor(Vue, data) {
+    this._vm = new Vue({ data })
   }
 
   get mode () { return this._vm.mode }
@@ -28,16 +24,5 @@ export default class VueEnbaled {
     }
 
     return this._vm.config[key].includes(mode)
-  }
-
-  _initVM (Vue, data) {
-    const silent = Vue.config.silent
-    Vue.config.silent = true
-    this._vm = new Vue({ data })
-    Vue.config.silent = silent
-  }
-
-  destroyVM() {
-    this._vm.$destroy()
   }
 }
